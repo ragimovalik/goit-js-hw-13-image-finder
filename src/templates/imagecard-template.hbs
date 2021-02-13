@@ -1,0 +1,29 @@
+{{#each this}}
+
+<li class="flex-item list__item">
+
+    <div class="photo-card">
+        <img class="image" src="{{webformatURL}}" alt="{{tags}}" />
+
+        <div class="stats d-flex justify-content-between">
+            <p class="stats__item">
+                <i class="material-icons md-18 md-dark">thumb_up</i>
+                {{likes}}
+            </p>
+            <p class="stats__item">
+                <i class="material-icons md-18 md-dark">visibility</i>
+                {{views}}
+            </p>
+            <p class="stats__item">
+                <i class="material-icons md-18 md-dark">comment</i>
+                {{comments}}
+            </p>
+            <p class="stats__item">
+                <i class="material-icons md-18 md-dark">cloud_download</i>
+                {{downloads}}
+            </p>
+        </div>
+    </div>
+
+</li>
+{{/each}}
