@@ -1,0 +1,30 @@
+.scroller {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+
+  opacity: 0.5;
+  transition: opacity $transition-duration $transition-timing,
+    transform $transition-duration $transition-timing;
+
+  // background-color: rgb(204, 196, 196);
+  background-color: rgba(41, 41, 51, 0.25);
+  border-radius: 50%;
+}
+
+.scroller:hover,
+.scroller:focus {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.scroller.is-hidden {
+  display: none;
+}

@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import imageCard from '../templates/imagecard-template.hbs';
 import { refs } from './refs.js';
 
-refs.input.addEventListener('input', debounce(imageSearchHandler, 2000));
+refs.input.addEventListener('input', debounce(imageSearchHandler, 1000));
 refs.loadingBtn.addEventListener('click', loader);
 
 function imageSearchHandler() {
@@ -29,6 +29,8 @@ function renderImages(images) {
     refs.imagesContainer.innerHTML = '';
     refs.totalHits.textContent = 'Please, check your query';
     refs.loadingBtn.classList.add('is-hidden');
+    refs.scroller.classList.add('is-hidden');
+
     return;
   }
 
@@ -44,6 +46,7 @@ function renderImages(images) {
   refs.totalHits.textContent = `${images.totalHits} images in the album`;
   refs.imagesContainer.insertAdjacentHTML('beforeend', markup);
   refs.loadingBtn.classList.remove('is-hidden');
+  refs.scroller.classList.remove('is-hidden');
 }
 
 // MODAL HANDLING
@@ -67,3 +70,12 @@ function modalCloser() {
   refs.modal.classList.remove('is-open');
   refs.modalImage.setAttribute('src', '#');
 }
+
+//SCROLL TO TOP
+
+refs.scroller.addEventListener('click', e =>
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  }),
+);

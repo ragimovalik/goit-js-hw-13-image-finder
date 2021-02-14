@@ -1,12 +1,7 @@
+@import './variables';
 @import './commons';
 @import './lightbox';
-
-$transition-duration: 250ms;
-$transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
-
-.button.is-hidden {
-  display: none;
-}
+@import './scroller';
 
 @media screen and (max-width: 575px) {
   .flex-item {
@@ -122,4 +117,16 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 
 .images-container {
   margin-bottom: 15px;
+}
+
+.label {
+  text-transform: uppercase;
+}
+
+.icon-color {
+  color: rgb(2, 117, 216);
+}
+
+.button.is-hidden {
+  display: none;
 }

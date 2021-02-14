@@ -9,4 +9,6 @@ export const refs = {
     'button[data-action="close-lightbox"]',
   ),
   modalOverlay: document.querySelector('.lightbox__overlay'),
+
+  scroller: document.getElementById('scroller-box'),
 };
