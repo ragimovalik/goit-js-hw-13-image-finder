@@ -1,6 +1,9 @@
 @import './commons';
 @import './lightbox';
 
+$transition-duration: 250ms;
+$transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
 .button.is-hidden {
   display: none;
 }
@@ -76,7 +79,7 @@
 
   margin-bottom: 10px;
 
-  transition: transform 200ms linear;
+  transition: transform $transition-duration $transition-timing;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
 }

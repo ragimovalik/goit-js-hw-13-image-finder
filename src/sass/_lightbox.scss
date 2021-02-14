@@ -11,7 +11,7 @@
   height: 100vh;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--animation-duration) var(--timing-function);
+  transition: opacity $transition-duration $transition-timing;
 }
 
 .lightbox.is-open {
@@ -30,7 +30,7 @@
 
 .lightbox__content {
   transform: scale(0.95);
-  transition: transform var(--animation-duration) var(--timing-function);
+  transition: transform $transition-duration $transition-timing;
 }
 
 .lightbox.is-open .lightbox__content {
@@ -61,7 +61,7 @@
   background-color: transparent;
   color: #fff;
   cursor: pointer;
-  transition: background-color var(--animation-duration) var(--timing-function);
+  transition: background-color $transition-duration $transition-timing;
   outline: none;
   background-image: url('../images/icon-close.svg');
   background-position: center;
