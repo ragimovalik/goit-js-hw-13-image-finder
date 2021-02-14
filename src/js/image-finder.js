@@ -1,43 +1,69 @@
 import updateFetch from './apiService.js';
+import debounce from 'lodash.debounce';
 import imageCard from '../templates/imagecard-template.hbs';
+import { refs } from './refs.js';
 
-const refs = {
-  searchForm: document.getElementById('search-form'),
-  input: document.getElementById('input'),
+refs.input.addEventListener('input', debounce(imageSearchHandler, 2000));
+refs.loadingBtn.addEventListener('click', loader);
 
-  imagesContainer: document.getElementById('images-container'),
-  totalHits: document.getElementById('total-result'),
+function imageSearchHandler() {
+  if (refs.input.value === '' || refs.input.value === ' ') return;
 
-  loadingBtn: document.getElementById('loading-button'),
-};
-
-refs.input.addEventListener('blur', e => {
-  
-  updateFetch.inputedText = refs.input.value;
+  updateFetch.query = refs.input.value;
   refs.imagesContainer.innerHTML = '';
   updateFetch.resetPage();
 
-  updateFetch.makeFetch().then(images => {
-    renderImages(images);
-  });
-});
+  loader();
+}
 
-refs.loadingBtn.addEventListener('click', e => {
-  updateFetch.makeFetch().then(images => {
-    renderImages(images);
+function loader() {
+  updateFetch.makeFetch().then(collection => {
+    renderImages(collection);
   });
-});
-
-// function loadMore() {
-// }
+}
 
 function renderImages(images) {
   const arr = images.hits;
 
-  if (arr.length === 0) return;
+  if (arr.length === 0) {
+    refs.imagesContainer.innerHTML = '';
+    refs.totalHits.textContent = 'Please, check your query';
+    refs.loadingBtn.classList.add('is-hidden');
+    return;
+  }
 
   const markup = imageCard(arr);
+
+  if (arr.length < updateFetch.pageCapacity) {
+    refs.totalHits.textContent = `${images.totalHits} images in the album`;
+    refs.imagesContainer.insertAdjacentHTML('beforeend', markup);
+    refs.loadingBtn.classList.add('is-hidden');
+    return;
+  }
+
   refs.totalHits.textContent = `${images.totalHits} images in the album`;
   refs.imagesContainer.insertAdjacentHTML('beforeend', markup);
   refs.loadingBtn.classList.remove('is-hidden');
+}
+
+// MODAL HANDLING
+
+refs.imagesContainer.addEventListener('click', modalOpener);
+refs.modalClosingBtn.addEventListener('click', modalCloser);
+refs.modalOverlay.addEventListener('click', modalCloser);
+
+function modalOpener() {
+  event.preventDefault();
+
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  refs.modal.classList.add('is-open');
+  refs.modalImage.setAttribute('src', event.target.dataset.fullscreen);
+}
+
+function modalCloser() {
+  refs.modal.classList.remove('is-open');
+  refs.modalImage.setAttribute('src', '#');
 }

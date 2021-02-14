@@ -2,15 +2,15 @@ const API_KEY = '20179181-b536d7b2e359c0533f6f56cb7';
 
 export default {
   pageNumber: 1,
-  inputedText: '',
+  inputtedText: '',
   pageCapacity: 12,
 
   resetPage() {
     this.pageNumber = 1;
   },
 
-  makeFetch(inputedText) {
-    const url = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.inputedText}&page=${this.pageNumber}&per_page=${this.pageCapacity}&key=${API_KEY}`;
+  makeFetch() {
+    const url = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.query}&page=${this.pageNumber}&per_page=${this.pageCapacity}&key=${API_KEY}`;
 
     return fetch(url)
       .then(res => {
@@ -26,11 +26,11 @@ export default {
       .catch(err => console.log('Error message #1 from: ' + err));
   },
 
-  get inputText() {
-    return this.inputedText;
+  get query() {
+    return this.inputtedText;
   },
 
-  set inputText(value) {
-    this.inputedText = value;
+  set query(value) {
+    this.inputtedText = value;
   },
 };
