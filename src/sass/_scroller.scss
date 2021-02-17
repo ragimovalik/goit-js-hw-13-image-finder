@@ -2,14 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   position: fixed;
-  bottom: 2%;
-  right: 2%;
   width: 60px;
   height: 60px;
   cursor: pointer;
-
   opacity: 0.5;
   transition: opacity $transition-duration $transition-timing,
     transform $transition-duration $transition-timing;
@@ -17,6 +13,27 @@
   // background-color: rgb(204, 196, 196);
   background-color: rgba(41, 41, 51, 0.25);
   border-radius: 50%;
+}
+
+@media screen and (min-width: 1024px) {
+  .scroller {
+    bottom: 2%;
+    right: 6%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 1023px) {
+  .scroller {
+    bottom: 2%;
+    right: 3%;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .scroller {
+    bottom: 2%;
+    right: 3%;
+  }
 }
 
 .scroller:hover,

@@ -4,6 +4,11 @@ import imageCard from '../templates/imagecard-template.hbs';
 import { refs } from './refs.js';
 
 refs.input.addEventListener('input', debounce(imageSearchHandler, 1000));
+refs.input.addEventListener('keydown', e => {
+  if (e.code !== 'Enter') return;
+  e.preventDefault();
+  imageSearchHandler();
+});
 refs.loadingBtn.addEventListener('click', loader);
 
 function imageSearchHandler() {
@@ -73,9 +78,19 @@ function modalCloser() {
 
 //SCROLL TO TOP
 
-refs.scroller.addEventListener('click', e =>
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  }),
-);
+refs.scroller.addEventListener('click', scrollToTop);
+
+function scrollToTop() {
+  return scrollTo({ top: 0 });
+}
+
+const scrolling = () => {
+  // scrollBy(0, innerHeight);
+
+  return scrollTo({
+    top:
+      document.documentElement.scrollTop +
+      document.documentElement.clientHeight -
+      30,
+  });
+};
