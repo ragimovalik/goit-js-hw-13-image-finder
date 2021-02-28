@@ -34,8 +34,6 @@ function renderImages(images) {
     refs.imagesContainer.innerHTML = '';
     refs.totalHits.textContent = 'Please, check your query';
     refs.loadingBtn.classList.add('is-hidden');
-    refs.scroller.classList.add('is-hidden');
-
     return;
   }
 
@@ -51,7 +49,8 @@ function renderImages(images) {
   refs.totalHits.textContent = `${images.totalHits} images in the album`;
   refs.imagesContainer.insertAdjacentHTML('beforeend', markup);
   refs.loadingBtn.classList.remove('is-hidden');
-  refs.scroller.classList.remove('is-hidden');
+
+  scrolling();
 }
 
 // MODAL HANDLING
@@ -76,21 +75,35 @@ function modalCloser() {
   refs.modalImage.setAttribute('src', '#');
 }
 
-//SCROLL TO TOP
+//SCROLL
+//Scroller hide&show
+window.addEventListener('scroll', function () {
+  document.documentElement.scrollTop <= 120
+    ? scrollHandler.hide()
+    : scrollHandler.show();
+});
+
+const scrollHandler = {
+  hide() {
+    refs.scroller.classList.add('is-hidden');
+  },
+
+  show() {
+    refs.scroller.classList.remove('is-hidden');
+  },
+};
+
+//Scroll to loaded page top
+
+const scrolling = () => {
+  if (updateFetch.pageNumber > 2)
+    return scrollBy(0, document.documentElement.clientHeight - 80);
+};
+
+//Scroll to Pagetop
 
 refs.scroller.addEventListener('click', scrollToTop);
 
 function scrollToTop() {
   return scrollTo({ top: 0 });
 }
-
-const scrolling = () => {
-  // scrollBy(0, innerHeight);
-
-  return scrollTo({
-    top:
-      document.documentElement.scrollTop +
-      document.documentElement.clientHeight -
-      30,
-  });
-};
